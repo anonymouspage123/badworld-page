@@ -3,7 +3,6 @@ const ORDER = [7, 41, 3, 16, 4];
 const SVG = 'http://www.w3.org/2000/svg';
 const WIDTH = 240;
 const HEIGHT = 240;
-const PIXELS_PER_METER = 4.2;
 const MAX_STEP = 40;
 const players = [];
 
@@ -24,9 +23,10 @@ function bounds(clip) {
 }
 
 function project(point, box) {
+  const scale = Math.min(204 / (box.hiX - box.loX), 204 / (box.hiY - box.loY));
   return [
-    WIDTH / 2 + (point[1] - (box.loY + box.hiY) / 2) * PIXELS_PER_METER,
-    HEIGHT / 2 - (point[0] - (box.loX + box.hiX) / 2) * PIXELS_PER_METER
+    WIDTH / 2 + (point[1] - (box.loY + box.hiY) / 2) * scale,
+    HEIGHT / 2 - (point[0] - (box.loX + box.hiX) / 2) * scale
   ];
 }
 
